@@ -1,0 +1,46 @@
+services:
+  news-aggregator-backend:
+    build: ./news-aggregator-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./news-aggregator-backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - db
+
+  news-aggregator:
+    build: ./news-aggregator
+    ports:
+      - "8081:8081"
+      - "19000:19000"  
+      - "19001:19001"  
+      - "19002:19002" 
+    volumes:
+      - ./news-aggregator:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - NODE_ENV=development
+    depends_on:
+      - news-aggregator-backend
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
