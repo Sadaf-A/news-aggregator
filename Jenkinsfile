@@ -10,19 +10,19 @@ pipeline {
 
         stage('Build and Run Containers') {
             steps {
-                sh 'docker-compose up --build -d'
+                sh '/usr/local/bin/docker-compose up --build -d'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'docker-compose exec backend npm test'
+                sh '/usr/local/bin/docker-compose exec backend npm test'
             }
         }
 
         stage('Stop Containers') {
             steps {
-                sh 'docker-compose down'
+                sh '/usr/local/bin/docker-compose down'
             }
         }
     }
