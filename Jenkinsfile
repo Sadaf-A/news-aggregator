@@ -10,6 +10,7 @@ pipeline {
 
         stage('Build and Run Containers') {
             steps {
+                sh 'docker --version'
                 sh '/usr/local/bin/docker-compose up --build -d'
             }
         }
