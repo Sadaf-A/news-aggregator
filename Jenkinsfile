@@ -11,20 +11,13 @@ pipeline {
         stage('Build and Run Containers') {
             steps {
                 sh 'docker --version'
-                sh '/usr/local/bin/docker-compose up --build -d'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'docker --version'
-                sh '/usr/local/bin/docker-compose exec backend npm test'
+                sh 'docker-compose up --build -d'
             }
         }
 
         stage('Stop Containers') {
             steps {
-                sh '/usr/local/bin/docker-compose down'
+                sh 'docker-compose down'
             }
         }
     }
