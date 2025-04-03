@@ -2,12 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Check Docker Version') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker --version'
+                    sh 'docker-compuse up -d --build'
                 }
             }
+        }
+
+        stage('Check Running Containers') {
+            steps {
+                script {
+                    sh 'docker ps'
+                }
+            }
+        }
+    }
+}
+
+post {
+    always {
+        script {
+            sh 'docker-compose down'
         }
     }
 }
