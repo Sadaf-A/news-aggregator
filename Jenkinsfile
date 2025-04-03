@@ -21,8 +21,8 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 script {
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm i'
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm test'
+                    sh 'docker-compose exec build-pipeline-news-aggregator-backend npm i'
+                    sh 'docker-compose exec build-pipeline-news-aggregator-backend npm test'
                 }
             }
         }
