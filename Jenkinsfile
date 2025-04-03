@@ -17,5 +17,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Run Backend Tests') {
+            steps {
+                script {
+                    sh 'docker-compose exec news-aggregator-backend npm i'
+                    sh 'docker-compose exec news-aggregator-backend npm test'
+                }
+            }
+        }
     }
 }

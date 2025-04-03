@@ -1,0 +1,12 @@
+{
+  "name": "se-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build" : "docker compose up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

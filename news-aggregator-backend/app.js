@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const axios = require('axios');
 const cron = require("node-cron");
+const User = require('./models/User');
+const Post = require('./models/Post');
 
 cron.schedule("0 * * * *", async () => {
   console.log("Running scheduled email notifications...");
@@ -79,33 +81,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB Error:', err));
-
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  interests: { type: [String], default: [] },
-  location: { type: String, default: "" },  
-  password: String,
-  notificationPreference: String,
-});
-
-const User = mongoose.model('User', userSchema);
-
-const postSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  url: { type: String, unique: true },
-  source: String,
-  likes: { type: Number, default: 0 },
-  comments: [{ user: String, text: String, timestamp: { type: Date, default: Date.now } }],
-  rating: Number,
-  urlToImage: { type: String, default: null }
-}, { timestamps: true });
-
-const Post = mongoose.model("Post", postSchema);
+mongoose.connect(process.env.MONGO_URI);
 
 app.post('/register', async (req, res) => {
   try {
@@ -254,7 +230,6 @@ app.get('/users/:id', async (req, res) => {
   
       res.json({ message: 'Preferences saved successfully' });
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: 'Failed to save interests' });
     }
   });
@@ -668,5 +643,12 @@ app.get('/users/:id', async (req, res) => {
   });
   
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  module.exports = app;
+
+  if (process.env.NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 5000;
+    const server = app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+    module.exports.server = server;
+  }
