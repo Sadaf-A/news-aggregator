@@ -1,14 +1,12 @@
 pipeline {
     agent any
+
     stages {
-        stage('Docker Compose Up') {
+        stage('Check Docker Version') {
             steps {
-                dockerCompose(up: '--build -d')
-            }
-        }
-        stage('Docker Compose Down') {
-            steps {
-                dockerCompose(down: true)
+                script {
+                    sh 'docker --version'
+                }
             }
         }
     }
