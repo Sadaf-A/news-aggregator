@@ -22,8 +22,8 @@ pipeline {
             steps {
                 script {
                     sleep 10
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend npm i'
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend npm test'
+                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm i'
+                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm test'
                 }
             }
         }
