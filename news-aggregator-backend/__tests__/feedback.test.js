@@ -60,7 +60,6 @@ app.post('/rate', async (req, res) => {
       }
   
       newsItem.rating = rating;
-  
       return res.status(200).json({ message: 'Rating updated successfully.', rating: newsItem.rating });
     } catch (error) {
       console.error('Error updating rating:', error);

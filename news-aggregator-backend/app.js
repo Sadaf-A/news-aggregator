@@ -212,7 +212,6 @@ app.get('/users/:id', async (req, res) => {
       if (!token) return res.status(401).json({ error: 'Unauthorized' });
   
       const decoded = jwt.verify(token, process.env.JWT_SECRET); 
-      console.log(decoded)
       const userEmail = decoded.userEmail; 
   
       if (!userEmail) return res.status(400).json({ error: 'Invalid token payload' });
@@ -642,7 +641,6 @@ app.get('/users/:id', async (req, res) => {
     }
   });
   
-
   module.exports = app;
 
   if (process.env.NODE_ENV !== 'test') {
