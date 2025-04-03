@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy Backend to GCP') {
             steps {
                 script {
-                    sleep 7
+                    sleep 13
                     sh 'docker ps'
                 }
             }
