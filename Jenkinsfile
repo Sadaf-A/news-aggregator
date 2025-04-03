@@ -26,5 +26,13 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Backend to GCP') {
+            steps {
+                script {
+                    sleep 7
+                    sh 'docker ps'
+                }
+            }
+        }
     }
 }
