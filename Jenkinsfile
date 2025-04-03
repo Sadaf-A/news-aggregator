@@ -21,9 +21,10 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 script {
-                    sleep 10
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm i'
-                    sh 'docker-compose exec build-pipeline-news-aggregator-backend-1 npm test'
+                       dir('news-aggregator-backend') { 
+    sh 'npm install' 
+    sh 'npm test'
+}
                 }
             }
         }
