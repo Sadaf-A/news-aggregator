@@ -21,10 +21,10 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 script {
-                       dir('news-aggregator-backend') { 
-    sh 'npm install' 
-    sh 'npm test'
-}
+                    dir('news-aggregator-backend') { 
+                        sh 'npm install' 
+                        sh 'npm test'           
+                    }
                 }
             }
         }
