@@ -21,8 +21,10 @@ pipeline {
         stage('Run Backend Tests') {
             steps {
                 script {
-                    sleep 7
-                    sh 'docker ps'
+                    dir('news-aggregator-backend') {
+                        sh 'npm i'
+                        sh 'npm run test'
+                    }
                 }
             }
         }
