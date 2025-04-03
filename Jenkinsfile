@@ -16,6 +16,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
+                sh 'docker --version'
                 sh '/usr/local/bin/docker-compose exec backend npm test'
             }
         }
