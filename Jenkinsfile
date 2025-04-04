@@ -1,10 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-        EMAIL_RECIPIENTS = 'dev-team@example.com,qa-team@example.com'
-        SMTP_CREDS = credentials('smtp-credentials')
-    }
     
     stages {
         stage('Build Docker Image') {
