@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        EMAIL_RECIPIENTS = 'dev-team@example.com,qa-team@example.com'
+        SMTP_CREDS = credentials('smtp-credentials')
+    }
+    
     stages {
         stage('Build Docker Image') {
             steps {
@@ -33,6 +38,17 @@ pipeline {
                     sh 'docker ps'
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            discordSend(
+                description: "Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' [${env.BUILD_NUMBER}]",
+                link: env.BUILD_URL,
+                result: currentBuild.currentResult,
+                webhookURL: 'https://discord.com/api/webhooks/1357634569179758634/of4MBQzYZjqQpJvkrAILFeWG8aGyzM8aIVqL600Cqw-VcfxxBMUOagT4uuppn98CpQGc'
+            )
         }
     }
 }
