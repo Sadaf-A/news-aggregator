@@ -2,7 +2,7 @@ services:
   news-aggregator-backend:
     build: ./news-aggregator-backend
     ports:
-      - "5002:5002"
+      - "5003:5003"
     volumes:
       - ./news-aggregator-backend:/app
       - /app/node_modules
@@ -14,7 +14,7 @@ services:
   news-aggregator:
     build: ./news-aggregator
     ports:
-      - "8081:8081"
+      - "8084:8084"
       - "19000:19000"  
       - "19001:19001"  
       - "19002:19002" 
